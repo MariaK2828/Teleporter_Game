@@ -1,0 +1,77 @@
+# SP Item Generator
+import random
+# p = Player()
+class Player:
+    random.seed(1000000)
+    
+    def __init__(self):
+        # into statement
+        print("You are a wizard with the ability to teleport to several locations and collect different items.")
+        print("You are trying to find the perfect gift for your wife, who you love very much.")
+        print("You can only collect items until your health bar reaches 100 or 0.")
+        
+        # prints og stats
+#         self.strength = 50
+#         self.speed = 50
+#         self.health = 50
+        
+        # the item's strength is randomly generated
+        self.item_strength = [*range(0,51)]
+        self.item_weight = [*range(1,11)]
+        self.item_damage = [*range(-20,21)]
+        self.item = ['a potion bottle', 'an orange cat name Milo', 'a bright red flower', 'a weird rock', 'a purple crystal', 'Justin Bieber', 'a large stick', 'the Mona Lisa', 'a cat figurine','one gummy bear', 'a lizard egg'] 
+        self.location = ['in the dark forest', 'in an underwater cave', 'on Candy island', 'in a sewer tunnel', 'on the Eiffel tower','somewhere in Quebec', 'in a sunny greenhouse', 'at a Taylor Swift concert', 'in a house made of cheese']
+        
+        # empty list to store your items
+        self.your_items = []
+    
+    def game_play(self):
+        teleport = 'y'
+        
+        new_strength = 50
+        new_health = 50
+        new_speed = 50
+        
+        # While you want to keep teleporting and while your health is not 0 or 100
+        while teleport == 'y' and 0 < new_health < 101:
+            
+            # the location and item statistics are randomly generated
+            loc = random.choice(self.location)
+            i = random.choice(self.item)
+            i_power = random.choice(self.item_strength)
+            i_weight = random.choice(self.item_weight)
+            i_damage = random.choice(self.item_damage)
+            
+            # displays randomised info 
+            print("You are " + loc + " when you find " + i + ".")
+            
+            # your stats are updated with item you collect
+            new_strength =  new_strength + i_power
+            new_health = new_health  + i_damage
+            new_speed= new_speed - i_weight
+            # displays updated stats
+            print("Your stats are now:\n-Strength: "+ str(new_strength) + "\n-Speed: " + str(new_speed) + "\n-Health: " + str(new_health ) + "\n")
+    
+            # adds new item to list
+            self.your_items.append({i:[{"Power":i_power},{"Weight":i_weight},{"Damage":i_damage}]})
+            # determines whether while loop continues
+            teleport = input("Do you want to teleport to another location (y/n)? ")
+            
+    def display_items(self):
+        item_str = ''
+        item_names = []
+        
+        # For loop to display the item as a string
+        for i in self.your_items:
+            for x in i:
+                item_names.append(str(x))
+                item_str += str(x) + '\n' + str(i.get(x)) + '\n' + '\n'
+            
+        print(item_str)
+        
+        gift = input("What gift are you going to choose out of the items you collected? ")
+        
+        if gift not in item_names:
+            raise ValueError("You did not collect this item.")
+        
+        print("Your wife liked your gift very much!")
