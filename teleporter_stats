@@ -1,6 +1,7 @@
 # SP Item Generator
 import random
 # p = Player()
+# p.run_game()
 class Player:
     random.seed(1000000)
     
@@ -8,7 +9,7 @@ class Player:
         # into statement
         print("You are a wizard with the ability to teleport to several locations and collect different items.")
         print("You are trying to find the perfect gift for your wife, who you love very much.")
-        print("You can only collect items until your health bar reaches 100 or 0.")
+        print("You can only collect items until your health bar reaches 0.")
         
         # prints og stats
 #         self.strength = 50
@@ -18,7 +19,7 @@ class Player:
         # the item's strength is randomly generated
         self.item_strength = [*range(0,51)]
         self.item_weight = [*range(1,11)]
-        self.item_damage = [*range(-20,21)]
+        self.item_damage = [*range(-20,0)]
         self.item = ['a potion bottle', 'an orange cat name Milo', 'a bright red flower', 'a weird rock', 'a purple crystal', 'Justin Bieber', 'a large stick', 'the Mona Lisa', 'a cat figurine','one gummy bear', 'a lizard egg'] 
         self.location = ['in the dark forest', 'in an underwater cave', 'on Candy island', 'in a sewer tunnel', 'on the Eiffel tower','somewhere in Quebec', 'in a sunny greenhouse', 'at a Taylor Swift concert', 'in a house made of cheese']
         
@@ -33,7 +34,7 @@ class Player:
         new_speed = 50
         
         # While you want to keep teleporting and while your health is not 0 or 100
-        while teleport == 'y' and 0 < new_health < 101:
+        while teleport == 'y' and 0 < new_health:
             
             # the location and item statistics are randomly generated
             loc = random.choice(self.location)
@@ -55,12 +56,15 @@ class Player:
             # adds new item to list
             self.your_items.append({i:[{"Power":i_power},{"Weight":i_weight},{"Damage":i_damage}]})
             # determines whether while loop continues
+            print("You collected this item.")
             teleport = input("Do you want to teleport to another location (y/n)? ")
+        print("")
             
     def display_items(self):
         item_str = ''
         item_names = []
         
+        print("Collected Items:")
         # For loop to display the item as a string
         for i in self.your_items:
             for x in i:
@@ -75,3 +79,7 @@ class Player:
             raise ValueError("You did not collect this item.")
         
         print("Your wife liked your gift very much!")
+        
+    def run_game(self):
+        self.game_play()
+        self.display_items()
